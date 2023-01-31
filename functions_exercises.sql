@@ -57,4 +57,13 @@ SELECT UPPER(CONCAT(first_name, ' ', last_name)) as full_name FROM employees whe
 SELECT *, datediff(curdate(), hire_date) as days_employed FROM employees WHERE hire_date like '199%' and birth_date like '%12-25';
 SELECT * FROM salaries LIMIT 5;
 SELECT MIN(salary), MAX(salary) FROM salaries WHERE to_date = '9999-01-01';
-SELECT CONCAT(LOWER(SUBSTR(first_name, 1, 1)), LOWER(SUBSTR(last_name, 1, 4)), '_', SUBSTR(birth_date, 6, 2), SUBSTR(birth_date, 3, 2)) AS username, first_name, last_name, birth_date FROM employees;
+SELECT LOWER(
+	CONCAT(
+		SUBSTR(first_name, 1, 1),
+        SUBSTR(last_name, 1, 4),
+        '_',
+        SUBSTR(birth_date, 6, 2),
+        SUBSTR(birth_date, 3, 2))) 
+AS username, 
+first_name, last_name, birth_date 
+FROM employees;
