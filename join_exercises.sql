@@ -134,10 +134,8 @@ LIMIT 1;
 
 -- 10. Average salary for each department
 SELECT d.dept_name, ROUND(AVG(s.salary)) AS average_salary
-FROM employees AS e
-	LEFT JOIN salaries AS s
-		USING (emp_no)
-	LEFT JOIN dept_emp AS de
+FROM salaries AS s
+	RIGHT JOIN dept_emp AS de
 		USING (emp_no)
 	LEFT JOIN departments as d
 		USING (dept_no)
