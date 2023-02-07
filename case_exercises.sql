@@ -1,3 +1,4 @@
+use employees;
 SHOW TABLES; 
 describe employees;
 describe dept_emp;
@@ -56,10 +57,17 @@ from employees;
 /* 4. What is the current average salary for each of the following department groups: 
 R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service? */
 
-select d.dept_name,
-
-	from salaries s 
-		join dept_emp de using(emp_no)
-		join departments d using (dept_no)
-	
-    
+select
+    case
+        when d.dept_name in ('Research', 'Development') then 'R&D'
+        when d.dept_name in ('Sales', 'Marketing') then 'Sales & Marketing'
+        when d.dept_name in ('Production', 'Quality Management') then 'Prod & QM'
+        when d.dept_name in ('Finance', 'Human Resources') then 'Finanace & HR'
+        else d.dept_name
+    end as dept_group,
+    round(avg(s.salary)) as avg_salary
+from departments d
+join dept_emp de using (dept_no)
+join salaries s using (emp_no)
+where s.to_date > NOW() and de.to_date > NOW()
+group by dept_group;
